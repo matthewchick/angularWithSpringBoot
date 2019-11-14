@@ -1,5 +1,23 @@
 <ul class="list-group">
-    <li class="list-group-item">Item 1</li>
-    <li class="list-group-item">Item 2</li>
-    <li class="list-group-item">Item 3</li>
+    <!-- #ngFor is a directive -->
+    <!-- property binding: bind values to the properties of HTML elements
+         checked = "{{task.completed}}"
+         bind-checked = "task.completed"
+         <input type="checkbox" checked>
+         Event binding: bind onTaskChange event to input checkbox
+         When the user changes, it will call onTaskChange method
+         https://www.javatpoint.com/two-way-data-binding-in-angular-8
+         ngClass is used to add and remove CSS classes on an HTML element
+    -->
+    <li  *ngFor ="let task of tasks" class="list-group-item">
+      <div class="task-checkbox">
+        <input type="checkbox"
+               class="list-child"
+               (change)="onTaskChange($event, task)"
+               [checked]="task.completed">
+        <span ngClass="{{ task.completed ? 'name completed' : 'name' }}"> {{ task.name }} </span>
+        <span class="label {{ getDueDateLabel(task) }} float-right"> {{ task.dueDate }} </span>
+      </div>
+    </li>
+
 </ul>
