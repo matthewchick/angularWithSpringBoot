@@ -3,6 +3,6 @@
   font-size: 15px;
 }
 .completed {
-  text-decoration: line-through !important;
+  text-decoration: none !important;
   font-style: italic;
 }

@@ -10,8 +10,8 @@ import {HttpClient} from "@angular/common/http";
 export class TaskService {
   constructor(private http: HttpClient) {
   }
-
+  // https://stackoverflow.com/questions/46630893/angular-res-json-is-not-a-function
   getTasks() {
-    return this.http.get('/api/tasks').pipe(map((response: any) => response.json()));
+    return this.http.get('/api/tasks').pipe(map(response => response));
   }
 }
