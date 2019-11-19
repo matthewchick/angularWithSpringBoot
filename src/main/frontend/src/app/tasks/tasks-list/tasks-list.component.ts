@@ -10,18 +10,24 @@ import { TaskService } from "../task.service";
 export class TasksListComponent implements OnInit {
   tasks: Task[] = [];   //tasks is an array object of Task
 
-  // constructor is not part of angular, which is called when the class is instantiated
+  // constructor is not part of angular, which is called
+  // when the class is instantiated
   // ngOnInit is called after the constructor is executed
 
   constructor(private taskService: TaskService ) { }
 
   ngOnInit() {
-    return this.taskService.getTasks()
+    this.taskService.getTasks()
       .subscribe(
         (tasks: any[]) => {
           this.tasks = tasks
         },
         (error) => console.log(error)
+      );
+
+    this.taskService.onTaskAdded
+      .subscribe(
+        (task: Task) => this.tasks.push(task)
       );
 
     // add Task to the array, using "for-loop" -> for (let tasks of Task)

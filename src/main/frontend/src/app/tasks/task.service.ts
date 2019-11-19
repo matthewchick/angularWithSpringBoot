@@ -1,5 +1,5 @@
 
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import { Task } from './task.model';
@@ -9,6 +9,9 @@ import { Task } from './task.model';
   providedIn: 'root'
 })
 export class TaskService {
+
+  onTaskAdded = new EventEmitter<Task>();
+
   constructor(private http: HttpClient) {
   }
   // https://stackoverflow.com/questions/46630893/angular-res-json-is-not-a-function
@@ -18,6 +21,11 @@ export class TaskService {
 
   saveTask(task: Task, checked: boolean){
     task.completed = checked;
+    return this.http.post('/api/tasks/save', task)
+      .pipe(map(response => response));
+  }
+
+  addTask(task: Task){
     return this.http.post('/api/tasks/save', task)
       .pipe(map(response => response));
   }
